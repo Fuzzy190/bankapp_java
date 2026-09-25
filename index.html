@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern ATM Interface</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="atm-container">
+        
+        <!-- LOGIN SCREEN -->
+        <div id="login-screen" class="screen active">
+            <h1>WELCOME</h1>
+            <p>Select your account and enter your PIN</p>
+            <div class="input-group">
+                <select id="login-acc" class="large-input">
+                    <option value="">Loading accounts...</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-pin" placeholder="PIN (4-6 digits)">
+            </div>
+            <button onclick="login()" class="btn-primary">ENTER</button>
+            <button onclick="switchScreen('create-screen')" class="btn-secondary">Create New Account</button>
+            <div id="login-msg" class="message error"></div>
+        </div>
+
+        <!-- CREATE ACCOUNT SCREEN -->
+        <div id="create-screen" class="screen">
+            <h1>NEW ACCOUNT</h1>
+            <div class="input-group">
+                <input type="text" id="create-name" placeholder="Full Name">
+            </div>
+            <div class="input-group">
+                <input type="password" id="create-pin" placeholder="Create PIN (4-6 digits)">
+            </div>
+            <div class="input-group">
+                <input type="number" id="create-deposit" placeholder="Initial Deposit (₱)">
+            </div>
+            <button onclick="createAccount()" class="btn-primary">CREATE</button>
+            <button onclick="switchScreen('login-screen')" class="btn-secondary">Cancel</button>
+            <div id="create-msg" class="message"></div>
+        </div>
+
+        <!-- DASHBOARD SCREEN -->
+        <div id="dashboard-screen" class="screen">
+            <div class="header">
+                <h2>Account: <span id="dash-acc-num"></span></h2>
+                <button onclick="logout()" class="btn-danger">LOGOUT</button>
+            </div>
+            <div class="balance-display">
+                <p>Available Balance</p>
+                <h1 id="dash-balance">₱0.00</h1>
+            </div>
+            
+            <div class="atm-grid" id="action-buttons">
+                <button onclick="showAction('deposit')" class="btn-action">DEPOSIT</button>
+                <button onclick="showAction('withdraw')" class="btn-action">WITHDRAW</button>
+                <button onclick="showAction('transfer')" class="btn-action">TRANSFER</button>
+                <button onclick="loadHistory()" class="btn-action">HISTORY</button>
+            </div>
+
+            <!-- ACTION PANEL (Dynamic) -->
+            <div id="action-panel" class="action-panel hidden">
+                <h3 id="action-title"></h3>
+                <input type="number" id="action-amount" placeholder="Amount (₱)" class="large-input">
+                <select id="action-dest" class="large-input hidden">
+                    <option value="">Select Destination Account</option>
+                </select>
+                <button id="action-submit" class="btn-primary">PROCEED</button>
+                <button onclick="hideAction()" class="btn-secondary">BACK</button>
+                <div id="action-msg" class="message"></div>
+            </div>
+
+            <!-- HISTORY PANEL -->
+            <div id="history-panel" class="history-panel hidden">
+                <h3>Transaction History</h3>
+                <div class="table-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body"></tbody>
+                    </table>
+                </div>
+                <button onclick="hideAction()" class="btn-secondary mt-10">BACK</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

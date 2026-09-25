@@ -1,6 +1,7 @@
 package com.ciicc.bankapp.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.ciicc.bankapp.service.BankingService;
 
 import lombok.RequiredArgsConstructor;
 
+@CrossOrigin(origins = "*") // Allows the HTML file to communicate with the API
 @RestController
 @RequestMapping("/api/bank")
 @RequiredArgsConstructor
